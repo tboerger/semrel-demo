@@ -22,8 +22,8 @@ rules:
 
 # Plugins run in order. condition → pre-tag → release (default).
 plugins:
-  - uses: "@semrel/condition-github-actions"
-    phase: condition
+  #- uses: "@semrel/condition-github-actions"
+  #  phase: condition
   - uses: "@semrel/provider-github"
   - uses: "@semrel/generator-changelog-md"
 

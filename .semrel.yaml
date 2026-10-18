@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://registry.semrel.io/schemas/core/v1.json
+# semrel configuration — https://semrel.io/guide/configuration/
+
+schemaVersion: 1
+
+# Branches that trigger a release.
+branches:
+  - name: master
+
+tagPrefix: "v"
+
+# Commit type → SemVer bump. Breaking changes (feat! / BREAKING CHANGE:) always → major.
+rules:
+  - type: feat
+    bump: minor
+  - type: fix
+    bump: patch
+  - type: perf
+    bump: patch
+  - type: revert
+    bump: patch
+
+# Plugins run in order. condition → pre-tag → release (default).
+plugins:
+  - uses: "@semrel/condition-github-actions"
+    phase: condition
+  - uses: "@semrel/provider-github"
+  - uses: "@semrel/generator-changelog-md"
+
+# Uncomment to enable additional features:
+commit_changelog: true   # commit CHANGELOG.md before tagging
+version_ceiling: "1.0.0" # cap releases below this version

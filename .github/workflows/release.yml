@@ -51,14 +51,7 @@ jobs:
       - name: Push tag to GitHub
         if: steps.semrel.outputs.released == 'true'
         run: |
-          TAG="${{ steps.semrel.outputs.tag }}"
-          if git ls-remote --tags origin "$TAG" | grep -q "$TAG"; then
-            echo "Tag $TAG already exists on remote — skipping"
-          else
-            git push origin "refs/tags/$TAG"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push
 
       - name: Summary
         run: |

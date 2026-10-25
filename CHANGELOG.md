@@ -1,4 +1,11 @@
-## v3.1.0 (2026-10-25)
+## v3.4.0
+
+## What's Changed
+
+### Features
+- feat: commit changelog enabled
+
+**Full Changelog**: v3.3.0...v3.4.0## v3.1.0 (2026-10-25)
 
 ### Features
 

@@ -25,8 +25,14 @@ plugins:
   #- uses: "@semrel/condition-github-actions"
   #  phase: condition
   - uses: "@semrel/generator-release-notes"
-    phase: pre-tag
+    phase: generator
+    args:
+      max_commits: "50"
+      include_body: "false"
+  # - uses: "@semrel/generator-changelog-md"
+  #   phase: pre-tag
   - uses: "@semrel/provider-github"
+    phase: release
 
 # Uncomment to enable additional features:
 commit_changelog: false   # commit CHANGELOG.md before tagging

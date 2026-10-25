@@ -24,9 +24,10 @@ rules:
 plugins:
   #- uses: "@semrel/condition-github-actions"
   #  phase: condition
+  - uses: "@semrel/generator-release-notes"
+    phase: pre-tag
   - uses: "@semrel/provider-github"
-  - uses: "@semrel/generator-changelog-md"
 
 # Uncomment to enable additional features:
-#commit_changelog: true   # commit CHANGELOG.md before tagging
+commit_changelog: false   # commit CHANGELOG.md before tagging
 #version_ceiling: "1.0.0" # cap releases below this version

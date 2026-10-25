@@ -35,5 +35,5 @@ plugins:
     phase: release
 
 # Uncomment to enable additional features:
-commit_changelog: false   # commit CHANGELOG.md before tagging
+# commit_changelog: false   # commit CHANGELOG.md before tagging
 #version_ceiling: "1.0.0" # cap releases below this version

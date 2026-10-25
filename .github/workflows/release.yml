@@ -1,0 +1,60 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 The semrel Authors
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+name: Semrel Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Run Semrel
+    runs-on: ubuntu-latest
+
+    outputs:
+      released: ${{ steps.semrel.outputs.released }}
+      tag: ${{ steps.semrel.outputs.tag }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install tools with Mise
+        uses: jdx/mise-action@v5
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "semrel-bot"
+          git config user.email "semrel-bot@users.noreply.github.com"
+
+      - name: Run semrel release
+        id: semrel
+        run: semrel release --github-output
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.semrel.outputs.released }}" = "true" ]; then
+            echo "### Released ${{ steps.semrel.outputs.tag }} 🚀" >> $GITHUB_STEP_SUMMARY
+            echo "**Bump:** ${{ steps.semrel.outputs.bump }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### No release — no releasable commits found." >> $GITHUB_STEP_SUMMARY
+          fi
+
+...

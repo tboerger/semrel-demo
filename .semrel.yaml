@@ -11,6 +11,12 @@ tagPrefix: "v"
 
 # Commit type → SemVer bump. Breaking changes (feat! / BREAKING CHANGE:) always → major.
 rules:
+  - type: major
+    bump: major
+  - type: minor
+    bump: minor
+  - type: patch
+    bump: patch
   - type: feat
     bump: minor
   - type: fix

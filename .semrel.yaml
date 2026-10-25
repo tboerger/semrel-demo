@@ -24,13 +24,59 @@ rules:
 plugins:
   #- uses: "@semrel/condition-github-actions"
   #  phase: condition
-  - uses: "@semrel/generator-release-notes"
-    phase: generator
+  - uses: "@semrel/generator-changelog-md"
+    phase: pre-tag
     args:
-      max_commits: "50"
-      include_body: "false"
-  # - uses: "@semrel/generator-changelog-md"
-  #   phase: pre-tag
+      sections_json: |
+        [
+          {
+              "type": "major",
+              "section": "Features"
+          },
+          {
+              "type": "deps",
+              "scope": "major",
+              "section": "Features"
+          },
+          {
+              "type": "minor",
+              "section": "Features"
+          },
+          {
+              "type": "deps",
+              "scope": "minor",
+              "section": "Features"
+          },
+          {
+              "type": "patch",
+              "section": "Bugfixes"
+          },
+          {
+              "type": "deps",
+              "scope": "patch",
+              "section": "Bugfixes"
+          },
+          {
+              "type": "feat",
+              "section": "Features"
+          },
+          {
+              "type": "fix",
+              "section": "Bugfixes"
+          },
+          {
+              "type": "docs",
+              "hidden": true
+          },
+          {
+              "type": "refactor",
+              "hidden": true
+          },
+          {
+              "type": "chore",
+              "hidden": true
+          }
+        ]
   - uses: "@semrel/provider-github"
     phase: release
 
